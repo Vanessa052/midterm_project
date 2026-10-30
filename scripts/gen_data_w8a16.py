@@ -1,9 +1,10 @@
+import os
 from safetensors.numpy import load_file
 import numpy as np
 
 np.random.seed(7)
 
-W_PATH = "../deit_tiny/model.safetensors"
+W_PATH = os.environ.get("DEIT_WEIGHTS", "../deit_tiny/model.safetensors")
 w = load_file(W_PATH)
 W_fp = w["blocks.0.attn.qkv.weight"].astype(np.float64)   # (576,192)
 B_fp = w["blocks.0.attn.qkv.bias"].astype(np.float64)

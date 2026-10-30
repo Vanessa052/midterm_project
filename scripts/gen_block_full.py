@@ -6,7 +6,7 @@ np.random.seed(42)
 D, SEQ, NHEAD = 192, 32, 3
 HEAD_DIM = D // NHEAD
 
-w = load_file("../deit_tiny/model.safetensors")
+w = load_file(os.environ.get("DEIT_WEIGHTS", "../deit_tiny/model.safetensors"))
 def g(name): return w[name].astype(np.float64)
 
 gamma1, beta1 = g("blocks.0.norm1.weight"), g("blocks.0.norm1.bias")

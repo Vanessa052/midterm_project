@@ -1,3 +1,4 @@
+import os
 import random
 from safetensors.numpy import load_file
 import numpy as np
@@ -5,7 +6,7 @@ import numpy as np
 random.seed(0)
 np.random.seed(0)
 
-W_PATH = "../deit_tiny/model.safetensors"
+W_PATH = os.environ.get("DEIT_WEIGHTS", "../deit_tiny/model.safetensors")
 w = load_file(W_PATH)
 
 # qkv.weight: shape (576, 192) = (N, K)

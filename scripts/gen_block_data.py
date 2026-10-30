@@ -1,9 +1,10 @@
+import os
 from safetensors.numpy import load_file
 import numpy as np
 
 np.random.seed(42)
 
-W_PATH = "../deit_tiny/model.safetensors"
+W_PATH = os.environ.get("DEIT_WEIGHTS", "../deit_tiny/model.safetensors")
 w = load_file(W_PATH)
 
 D = 192          # embedding dim
