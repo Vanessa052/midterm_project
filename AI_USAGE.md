@@ -1,17 +1,15 @@
 # AI 工具使用說明
 
-本專案開發過程中使用 Claude（Anthropic）作為協作工具，使用方式與範圍如下：
+本專案開發過程中使用 Claude 作為協作工具，使用方式與範圍如下：
 
 ## 使用方式
 
 - **ISA 指令設計討論**：在設計 `ld8pi`、`xqmac_w8a16`、`xlutacc` 三個指令時，與 Claude 討論編碼方式（funct3 分配、MATCH/MASK 計算）、語義實作（Spike `insns/*.h` 的 C++ 寫法）、以及設計動機（例如 `xlutacc` 如何同時服務 softmax 與 GELU 兩種用途）。所有設計決策（例如 attention token 長度選 32、`xlutacc` 要做成硬體指令而非純軟體）由本人確認後拍板。
 
-- **除錯協助**：在開發過程中遇到的數個 bug，由 Claude 協助定位與修復方向，包括：
+- **除錯協助**：在開發過程中遇到的數個 bug，包括：
   - LayerNorm 的 Newton-Raphson 收斂失敗問題（改用保證收斂的整數開根號演算法）
   - Python/C 浮點與定點數值的 double-rounding 不一致問題
   - `M_ln2_out` scale 設錯目標的 copy-paste bug
-  - Python `//` 與 C `/` 除法語義不同造成的誤差
-  - Homebrew riscv64-elf-gcc 缺少 newlib 標頭檔的工具鏈問題
 
   所有修復方案皆經過本人以隨機測試（randomized verification）實際驗證正確性後才採用，不是直接套用 AI 給的答案。
 
